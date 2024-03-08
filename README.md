@@ -17,7 +17,18 @@ iqtree2 -s wolves_dogs_aln_noindels.phy -m HKY+F+I+G4 -B 1000 -redo
 
 
 * Download ```wolves_dogs_aln_noindels.phy.treefile```
-* Open **FigTree**. At the top click on the button that says "Node" and click on the branch for the clade of the 4 coyote sequences so that it is higlighted in purple. Click on the button that says "Reroot  on the top left.
+* Open **FigTree**.
+* Enter "bootstrap" (sorry for my typo!) in the pop-up window.
+    ![image](https://github.com/lin-at/aDNA-workshop-phylogenetics/assets/68337277/7f633e10-b5eb-493a-ba11-a554e325c8ec)
+* At the top click on the button that says "Node" and click on the branch for the clade of the 4 coyote sequences so that it is higlighted in purple. These are the outgroup sequences that roots the topology of the tree.
+![image](https://github.com/lin-at/aDNA-workshop-phylogenetics/assets/68337277/44e459e7-22f6-4a08-9e13-fd2480f2ac89)
+* Click on the button that says "Reroot  on the top left.
 * On the Layout panel on the left, click the little carrot triangle next to "Trees" and check the box  for "Order nodes". Make sure That the "Ordering" pull-down menu is "increasing"
+![image](https://github.com/lin-at/aDNA-workshop-phylogenetics/assets/68337277/a322088d-634d-41e8-914a-40fdd51ce72f)
+* On the Layout panel on the left, click the little carrot triangle next to "Node Labels" and check the box. Select "bootstrap" on the "Display" pull-down menu. 
+ ![image](https://github.com/lin-at/aDNA-workshop-phylogenetics/assets/68337277/5ee4bf4c-a7d9-4db7-9c0b-c2dc81d2ad70)
 * You can manipulate the tree by zooming in/expanding the branches using the "Layout" panel on the left by adjusting the "Zoom" and "Expansion" toggles.
+  ![image](https://github.com/lin-at/aDNA-workshop-phylogenetics/assets/68337277/ab4598c0-2450-4b41-a273-df12aefa6e84)
+
+Notice the different species and population structure of the wolves and dogs on the tree. We have two clades of dogs embedded within the different wolf population. Does this suggest that dogs were domesticated from at least two separate ancient wolf populations? 
 
