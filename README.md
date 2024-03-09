@@ -8,7 +8,7 @@ You can view the output of the test in the log file, ```wolves_dogs_aln_noindels
 ```
 grep "Best-fit" wolves_dogs_aln_noindels.phy.log
 ```
-According to the test, the **Best-fit model: HKY+F+I+G4 chosen according to BIC**. Thus, for additional analyses you do not have to perform the model test again and can use the selected model. Now, let's make a tree using this model. 
+According to the test, the **Best-fit model: HKY+F+I+G4 chosen according to BIC**. Thus, for additional analyses you do not have to perform the model test again and can use the selected model. Now, let's make a tree using this model, with with 1000 bootstrap replicates, which is what the IQTREE manual recommends.  
 ```
 iqtree2 -s wolves_dogs_aln_noindels.phy -m HKY+F+I+G4 -B 1000 -redo
 ```
@@ -39,4 +39,7 @@ Notice the different species and population structure of the wolves and dogs on 
 * Bergström, Anders, et al. "Grey wolf genomic history reveals a dual ancestry of dogs." Nature 607.7918 (2022): 313-320.
 * Frantz, Laurent AF, et al. "Genomic and archaeological evidence suggest a dual origin of domestic dogs." Science 352.6290 (2016): 1228-1231.
 * Ramos-Madrigal, Jazmín, et al. "Genomes of Pleistocene Siberian wolves uncover multiple extinct wolf lineages." Current Biology 31.1 (2021): 198-206.
+# More Resources
+* <a href="http://www.iqtree.org/doc/Tutorial">IQTREE Tutorial</a>
+* <a href="http://www.iqtree.org/doc/">IQTREE Documentation</a>
 
