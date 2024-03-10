@@ -9,7 +9,10 @@ You can view the output of the test in the log file, ```wolves_dogs_aln_noindels
 ```
 grep "Best-fit" wolves_dogs_aln_noindels.phy.log
 ```
-According to the test, the **Best-fit model: HKY+F+I+G4 chosen according to BIC**. Thus, for additional analyses you do not have to perform the model test again and can use the selected model. 
+According to the IQTREE test, the **Best-fit model: HKY+F+I+G4 chosen according to BIC**. BIC stands for _Bayesian Information Criterion_ (BIC; Schwarz, 1978) which is closely related to the _Akaike Information Criterion_ (also known as AIC). When scoring the fit of a model, the AIC measures the relative amount of information that is lost when that model is used to approximate reality. Consequently, the model with the minimum AIC score is perferred. To calculate the relative plausibility od fifferent models, you use the difference in the AIC scores across the models and this leads to Akaike weights. You start with the model with the highest weight (lowest AIC score), and then determine the plausible set of models by successively adding the next highest weight until a cumulative weight of 0.95 is reached. BIC uses a different theoretical framework, but it is still similar to BIC in that BIC scores and weights are interpreted similarily. The major difference is that BIC generally penalizes complex models and ends up favoring simpler models. In other words, BIC can be preferable because when fitting models, you can end up overfitting the model by adding too many parameters in the aim of increase the likelihood. BIC solves this issue by introducing a greater penalty for more parameters you introduce.  
+
+Let's see what jModeltest2 suggests is the best-fit model for your data. 
+
 # Building a Maximum-likelihood phylgenetic tree
 Now, let's make a tree using this model, with with 1000 bootstrap replicates, which is what the IQTREE manual recommends.  
 ```
