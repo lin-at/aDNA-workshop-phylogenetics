@@ -1,6 +1,7 @@
 # Introduction to phylogenetics with ancient genomes
-
-Run this command to determine what the best-fit model is, using the standard model selection operator ```-m TESTONLY```. This model selection test is most similar to other model test programs like jModelTest and ProtTest. 
+In this exercise, we will use IQTREE and jModelTest2 to determine what is the best substitution model to use for our alignment of canid mtDNA. Then, we will use RaXML and IQTREE to build Maximum-Likelihood trees. 
+# Selecting the best-fit model
+Run this command to determine what the best-fit model is in IQTREE, using the standard model selection operator ```-m TESTONLY```. This model selection test is most similar to other model test programs like jModelTest and ProtTest. 
 ```
 iqtree2 -s wolves_dogs_aln_noindels.phy -m TESTONLY
 ```
@@ -8,7 +9,9 @@ You can view the output of the test in the log file, ```wolves_dogs_aln_noindels
 ```
 grep "Best-fit" wolves_dogs_aln_noindels.phy.log
 ```
-According to the test, the **Best-fit model: HKY+F+I+G4 chosen according to BIC**. Thus, for additional analyses you do not have to perform the model test again and can use the selected model. Now, let's make a tree using this model, with with 1000 bootstrap replicates, which is what the IQTREE manual recommends.  
+According to the test, the **Best-fit model: HKY+F+I+G4 chosen according to BIC**. Thus, for additional analyses you do not have to perform the model test again and can use the selected model. 
+# Building a Maximum-likelihood phylgenetic tree
+Now, let's make a tree using this model, with with 1000 bootstrap replicates, which is what the IQTREE manual recommends.  
 ```
 iqtree2 -s wolves_dogs_aln_noindels.phy -m HKY+F+I+G4 -B 1000 -redo
 ```
