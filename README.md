@@ -14,6 +14,10 @@ According to the IQTREE test, the **Best-fit model: HKY+F+I+G4 chosen according 
 Let's see what jModeltest2 suggests is the best-fit model for your data. 
 ```
 java -jar /home/ec2-user/Software/jmodltest2/jmodeltest-2.1.10/jModelTest.jar -d example-data/aP6.fas -f -i -g 4 -s 11 -AIC -a
+ Command line: java -jar jModeltest.jar -d sequenceFileName [arguments]
+
+ Example: java -jar jModeltest.jar -d sequenceFileName -i -f -g 4 -BIC -AIC -AICc -DT -v -a -w
+
 ```
 This will test all 88 models (gamma models with 4 rate categories), and then perform the model selection using Akaike (AIC) and Bayesian (BIC) criteria, calculating also a model averaged phylogeny (```-a```).
 
