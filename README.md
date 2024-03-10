@@ -9,11 +9,13 @@ You can view the output of the test in the log file, ```wolves_dogs_aln_noindels
 ```
 grep "Best-fit" wolves_dogs_aln_noindels.phy.log
 ```
-According to the IQTREE test, the **Best-fit model: HKY+F+I+G4 chosen according to BIC**. BIC stands for _Bayesian Information Criterion_ (BIC; Schwarz, 1978) which is closely related to the _Akaike Information Criterion_ (also known as AIC). When scoring the fit of a model, the AIC measures the relative amount of information that is lost when that model is used to approximate reality. Consequently, the model with the minimum AIC score is perferred. To calculate the relative plausibility od fifferent models, you use the difference in the AIC scores across the models and this leads to Akaike weights. You start with the model with the highest weight (lowest AIC score), and then determine the plausible set of models by successively adding the next highest weight until a cumulative weight of 0.95 is reached. BIC uses a different theoretical framework, but it is still similar to BIC in that BIC scores and weights are interpreted similarily. The major difference is that BIC generally penalizes complex models and ends up favoring simpler models. In other words, BIC can be preferable because when fitting models, you can end up overfitting the model by adding too many parameters in the aim of increase the likelihood. BIC solves this issue by introducing a greater penalty for more parameters you introduce.  
+According to the IQTREE test, the **Best-fit model: HKY+F+I+G4 chosen according to BIC**. BIC stands for _Bayesian Information Criterion_ (BIC; Schwarz, 1978) which is closely related to the _Akaike Information Criterion_ (also known as AIC). When scoring the fit of a model, the AIC measures the relative amount of information that is lost when that model is used to approximate reality. Consequently, the model with the minimum AIC score is perferred. To calculate the relative plausibility of fifferent models, you use the difference in the AIC scores across the models and this leads to Akaike weights. You start with the model with the highest weight (lowest AIC score), and then determine the plausible set of models by successively adding the next highest weight until a cumulative weight of 0.95 is reached. BIC uses a different theoretical framework, but it is still similar to BIC in that BIC scores and weights are interpreted similarily. The major difference is that BIC generally penalizes complex models and ends up favoring simpler models. In other words, BIC can be preferable because when fitting models, you can end up overfitting the model by adding too many parameters in the aim of increase the likelihood. BIC solves this issue by introducing a greater penalty for more parameters you introduce.  
 
 Let's see what jModeltest2 suggests is the best-fit model for your data. 
 
-# Building a Maximum-likelihood phylgenetic tree
+# Building a Maximum-Likelihood phylgenetic tree with IQTREE
+There are many different programs you can use to build a ML tree. One very flexible ML-based method is <a href="http://www.iqtree.org/">IQTREE</a>. IQTREE is great, has extensive documentation, and also integrates model selection with a wide variety of different models, so you don't have to use a separate model tester. 
+
 Now, let's make a tree using this model, with with 1000 bootstrap replicates, which is what the IQTREE manual recommends.  
 ```
 iqtree2 -s wolves_dogs_aln_noindels.phy -m HKY+F+I+G4 -B 1000 -redo
@@ -25,6 +27,30 @@ When IQTREE is finished running, download ```wolves_dogs_aln_noindels.phy.treefi
 ```
 scp -i apgc-2021-key.pem.txt your_user_name@3.249.84.19:/home/ec2-user/Data/wolves_dogs_aln_noindels.phy.treefile .
 ```
+# Building a Maximum-Likelihood phylogenetic tree with RAxML
+As I have previously mentioned, there are many different programs you can use to build a ML tree. <a href="https://cme.h-its.org/exelixis/web/software/raxml/index.html">RAxML</a> is one of the most popular ML-based method in phylogenetics. 
+```
+raxmlHPC-SSE3 -f a -x -m -p -# 100 -s wolves_dogs_aln_noindels.phy -n raxml_tree -T 1
+```
+Here are what the different operators are: 
+
+```-f``` selects the algorithm to use. The ```a``` argument selects a rapid bootstrap analysis and best-tree search in one run.
+
+```-x``` random seed for rapid bootstrapping. $RANDOM is a UNIX variable that specifies a random number.
+
+```-p``` random seed for parsimony inferences.
+
+```-#``` number of alternative runs on distinct starting trees. We choose 100 starting trees. 
+
+```-m``` select the model of evolution. ```GTRGAMMA``` specifies the general-time-reversible nucleotide substitution model with a gamma model of rate heterogeneity. Compared to IQTREE, ```GTRGAMMA``` and similar variations of it (e.g. ```GTRCAT```) are really the only substitution models RaXML offers.
+
+```-s``` input alignment file.
+
+```-n``` name of output file.
+
+```-T``` number of threads to use (cores). Let's go with 1. 
+
+# Visualizing your tree
 Open **FigTree**.
  Enter "bootstrap" (sorry for my typo!) in the pop-up window.
     ![image](https://github.com/lin-at/aDNA-workshop-phylogenetics/assets/68337277/7f633e10-b5eb-493a-ba11-a554e325c8ec)
