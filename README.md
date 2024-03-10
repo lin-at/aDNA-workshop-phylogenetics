@@ -13,9 +13,9 @@ According to the IQTREE test, the **Best-fit model: HKY+F+I+G4 chosen according 
 
 Let's see what jModeltest2 suggests is the best-fit model for your data. 
 ```
-$ cd $JMODELTEST_HOME
-$ java -jar jModelTest.jar -d example-data/aP6.fas -f -i -g 4 -s 11 -AIC -a
+java -jar /home/ec2-user/Software/jmodltest2/jmodeltest-2.1.10/jModelTest.jar -d example-data/aP6.fas -f -i -g 4 -s 11 -AIC -a
 ```
+This will test all 88 models (gamma models with 4 rate categories), and then perform the model selection using Akaike (AIC) and Bayesian (BIC) criteria, calculating also a model averaged phylogeny (```-a```).
 
 # Building a Maximum-Likelihood phylgenetic tree with IQTREE
 There are many different programs you can use to build a ML tree. One very flexible ML-based method is <a href="http://www.iqtree.org/">IQTREE</a>. IQTREE is great, has extensive documentation, and also integrates model selection with a wide variety of different models, so you don't have to use a separate model tester. 
