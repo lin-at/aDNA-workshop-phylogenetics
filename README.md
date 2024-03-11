@@ -36,6 +36,8 @@ Here are what the different operators are:
 
 ```-o``` output file name
 
+According to jModeltest2, the best fit model is xxx. 
+
 # Building a Maximum-Likelihood phylgenetic tree with IQTREE
 There are many different programs you can use to build a ML tree. One very flexible ML-based method is <a href="http://www.iqtree.org/">IQTREE</a>. IQTREE is great, has extensive documentation, and also integrates model selection with a wide variety of different models, so you don't have to use a separate model tester. 
 
