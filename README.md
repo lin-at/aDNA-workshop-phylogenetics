@@ -1,21 +1,37 @@
 # Introduction to phylogenetics with ancient genomes
 In this exercise, we will use IQTREE and jModelTest2 to determine what is the best substitution model to use for our alignment of canid mtDNA. Then, we will use RaXML and IQTREE to build Maximum-Likelihood trees. 
+
+First, in your AWS home directory, create a new ```mtDNA``` directory:
+```
+mkdir mtDNA
+```
+```
+cd mtDNA
+```
+
 # Selecting the best-fit model
+Download ```/home/ec2-user/Data/mtDNA/wolves_dogs_aln_noindels.phy```and upload this file into your newly created ```mtDNA``` directory in your AWS account. 
+```
+scp -i apgc-2021-key.pem.txt your_user_name@3.249.84.19:/home/ec2-user/Data/mtDNA/wolves_dogs_aln_noindels.phy .
+```
+```
+scp -i apgc-2021-key.pem.txt wolves_dogs_aln_noindels.phy your_user_name@3.249.84.19:/home/your_user_name/mtDNA/
+```
 Note: use ```iqtree --help``` to display what the different options are.
 
 Run the below command to determine what the best-fit model is in IQTREE, using the standard model selection operator ```-m TESTONLY```. This model selection test is most similar to other model test programs like jModelTest and ProtTest. 
 ```
-iqtree -s /home/ec2-user/Data/mtDNA/wolves_dogs_aln_noindels.phy -m TESTONLY
+iqtree -s wolves_dogs_aln_noindels.phy -m TESTONLY
 ```
 You can view the output of the test in the log file, ```wolves_dogs_aln_noindels.phy.log```. Let's see what the best-fit model is.
 ```
 grep "Best-fit" wolves_dogs_aln_noindels.phy.log
 ```
-According to the IQTREE test, the **Best-fit model: HKY+F+I+G4 chosen according to BIC**. BIC stands for _Bayesian Information Criterion_ (BIC; Schwarz, 1978) which is closely related to the _Akaike Information Criterion_ (also known as AIC). When scoring the fit of a model, the AIC measures the relative amount of information that is lost when that model is used to approximate reality. Consequently, the model with the minimum AIC score is perferred. To calculate the relative plausibility of fifferent models, you use the difference in the AIC scores across the models and this leads to Akaike weights. You start with the model with the highest weight (lowest AIC score), and then determine the plausible set of models by successively adding the next highest weight until a cumulative weight of 0.95 is reached. BIC uses a different theoretical framework, but it is still similar to BIC in that BIC scores and weights are interpreted similarily. The major difference is that BIC generally penalizes complex models and ends up favoring simpler models. In other words, BIC can be preferable because when fitting models, you can end up overfitting the model by adding too many parameters in the aim of increase the likelihood. BIC solves this issue by introducing a greater penalty for more parameters you introduce.  
+According to the IQTREE test, the ```Best-fit model: HKY+F+I+G4 chosen according to BIC.``` BIC stands for _Bayesian Information Criterion_ (BIC; Schwarz, 1978) which is closely related to the _Akaike Information Criterion_ (also known as AIC). When scoring the fit of a model, the AIC measures the relative amount of information that is lost when that model is used to approximate reality. Consequently, the model with the minimum AIC score is perferred. To calculate the relative plausibility of fifferent models, you use the difference in the AIC scores across the models and this leads to Akaike weights. You start with the model with the highest weight (lowest AIC score), and then determine the plausible set of models by successively adding the next highest weight until a cumulative weight of 0.95 is reached. BIC uses a different theoretical framework, but it is still similar to BIC in that BIC scores and weights are interpreted similarily. The major difference is that BIC generally penalizes complex models and ends up favoring simpler models. In other words, BIC can be preferable because when fitting models, you can end up overfitting the model by adding too many parameters in the aim of increase the likelihood. BIC solves this issue by introducing a greater penalty for more parameters you introduce.  
 
 Let's see what jModeltest2 suggests is the best-fit model for your data. 
 ```
-java -jar /home/ec2-user/Software/jmodltest2/jmodeltest-2.1.10/jModelTest.jar -d /home/ec2-user/Data/mtDNA/wolves_dogs_aln_noindels.phy -f -i -g 4 -s 11 -AIC -BIC -a -o jmodeltest_output
+java -jar /home/ec2-user/Software/jmodltest2/jmodeltest-2.1.10/jModelTest.jar -d wolves_dogs_aln_noindels.phy -f -i -g 4 -s 11 -AIC -BIC -a -o jmodeltest_output
 
 ```
 This will test all 88 models including gamma models with 4 rate categories (```-f -i -g 4 -a``` ), and then perform the model selection using Akaike (```-AIC```) and Bayesian (```-BIC```) criteria, calculating also a model averaged phylogeny (```-a```). The output file name is specified by the operator ```-o```
@@ -55,17 +71,17 @@ When IQTREE is finished running, download ```wolves_dogs_aln_noindels.phy.treefi
 scp -i apgc-2021-key.pem.txt your_user_name@3.249.84.19:/home/ec2-user/Data/wolves_dogs_aln_noindels.phy.treefile .
 ```
 # Building a Maximum-Likelihood phylogenetic tree with RAxML
-As I have previously mentioned, there are many different programs you can use to build a ML tree. <a href="https://cme.h-its.org/exelixis/web/software/raxml/index.html">RAxML</a> is one of the most popular ML-based method in phylogenetics. 
+As I have previously mentioned, there are many different programs you can use to build a ML tree. <a href="https://cme.h-its.org/exelixis/web/software/raxml/index.html">RAxML</a> is one of the most popular ML-based method in phylogenetics. Unfortunately, the substitution models you can implement in RAxML are much more limited, and HKY+F+I+G4 model identified in IQTREE cannot be fully used. 
 ```
-raxmlHPC-SSE3 -f a -x -m -p -# 100 -s /home/ec2-user/Data/mtDNA/wolves_dogs_aln_noindels.phy -n raxml_tree -T 1
+raxmlHPC-SSE3 -f a -x 12345 -m GTRGAMMA -p 12345 -# 100 -s wolves_dogs_aln_noindels.phy -n raxml_tree --HKY85
 ```
 Here are what the different operators are: 
 
 ```-f``` selects the algorithm to use. The ```a``` argument selects a rapid bootstrap analysis and best-tree search in one run.
 
-```-x``` random seed for rapid bootstrapping. $RANDOM is a UNIX variable that specifies a random number.
+```-x``` random seed for rapid bootstrapping. $RANDOM is a UNIX variable that specifies a random number. We choose 12345. 
 
-```-p``` random seed for parsimony inferences.
+```-p``` random seed for parsimony inferences. We choose 12345. 
 
 ```-#``` number of alternative runs on distinct starting trees. We choose 100 starting trees. 
 
@@ -75,7 +91,7 @@ Here are what the different operators are:
 
 ```-n``` name of output file.
 
-```-T``` number of threads to use (cores). Let's go with 1. 
+The run will take a few minutes. 
 
 # Visualizing your tree
 Open **FigTree**.
