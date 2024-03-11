@@ -19,13 +19,21 @@ java -jar /home/ec2-user/Software/jmodltest2/jmodeltest-2.1.10/jModelTest.jar -d
 This will test all 88 models including gamma models with 4 rate categories (```-f -i -g 4 -a``` ), and then perform the model selection using Akaike (```-AIC```) and Bayesian (```-BIC```) criteria, calculating also a model averaged phylogeny (```-a```). The output file name is specified by the operator ```-o```
 
 Here are what the different operators are: 
+
 ```-d``` input data file
+
 ```-i``` include models with a proportion invariable sites
+
 ```-g```  include models with rate variation among sites and number of categories 
+
 ```-s``` number of substitution schemes (e.g., -s 11) (it has to be 3,5,7,11,203; default is 3)
+
 ```-AIC``` calculate the Akaike Information Criterion
+
 ```-BIC```   calculate the Bayesian Information Criterion 
+
 ```-a```   estimate model-averaged phylogeny for each active criterion
+
 ```-o``` output file name
 
 # Building a Maximum-Likelihood phylgenetic tree with IQTREE
