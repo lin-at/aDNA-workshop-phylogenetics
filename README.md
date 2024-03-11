@@ -3,7 +3,7 @@ In this exercise, we will use IQTREE and jModelTest2 to determine what is the be
 # Selecting the best-fit model
 Run this command to determine what the best-fit model is in IQTREE, using the standard model selection operator ```-m TESTONLY```. This model selection test is most similar to other model test programs like jModelTest and ProtTest. 
 ```
-iqtree2 -s wolves_dogs_aln_noindels.phy -m TESTONLY
+iqtree2 -s /home/ec2-user/Data/mtDNA/wolves_dogs_aln_noindels.phy/wolves_dogs_aln_noindels.phy -m TESTONLY
 ```
 You can view the output of the test in the log file, ```wolves_dogs_aln_noindels.phy.log```. Let's see what the best-fit model is.
 ```
@@ -13,7 +13,7 @@ According to the IQTREE test, the **Best-fit model: HKY+F+I+G4 chosen according 
 
 Let's see what jModeltest2 suggests is the best-fit model for your data. 
 ```
-java -jar /home/ec2-user/Software/jmodltest2/jmodeltest-2.1.10/jModelTest.jar -d example-data/aP6.fas -f -i -g 4 -s 11 -AIC -BIC -a -o jmodeltest_output
+java -jar /home/ec2-user/Software/jmodltest2/jmodeltest-2.1.10/jModelTest.jar -d /home/ec2-user/Data/mtDNA/wolves_dogs_aln_noindels.phy -f -i -g 4 -s 11 -AIC -BIC -a -o jmodeltest_output
 
 ```
 This will test all 88 models including gamma models with 4 rate categories (```-f -i -g 4 -a``` ), and then perform the model selection using Akaike (```-AIC```) and Bayesian (```-BIC```) criteria, calculating also a model averaged phylogeny (```-a```). The output file name is specified by the operator ```-o```
@@ -43,7 +43,7 @@ There are many different programs you can use to build a ML tree. One very flexi
 
 Now, let's make a tree using this model, with with 1000 bootstrap replicates, which is what the IQTREE manual recommends.  
 ```
-iqtree2 -s wolves_dogs_aln_noindels.phy -m HKY+F+I+G4 -B 1000 -redo
+iqtree2 -s /home/ec2-user/Data/mtDNA/wolves_dogs_aln_noindels.phy -m HKY+F+I+G4 -B 1000 -redo
 ```
 
 Use ```-redo``` option if you really want to redo the analysis and overwrite all output files. (Yes). This will take a few minutes.
@@ -55,7 +55,7 @@ scp -i apgc-2021-key.pem.txt your_user_name@3.249.84.19:/home/ec2-user/Data/wolv
 # Building a Maximum-Likelihood phylogenetic tree with RAxML
 As I have previously mentioned, there are many different programs you can use to build a ML tree. <a href="https://cme.h-its.org/exelixis/web/software/raxml/index.html">RAxML</a> is one of the most popular ML-based method in phylogenetics. 
 ```
-raxmlHPC-SSE3 -f a -x -m -p -# 100 -s wolves_dogs_aln_noindels.phy -n raxml_tree -T 1
+raxmlHPC-SSE3 -f a -x -m -p -# 100 -s /home/ec2-user/Data/mtDNA/wolves_dogs_aln_noindels.phy -n raxml_tree -T 1
 ```
 Here are what the different operators are: 
 
