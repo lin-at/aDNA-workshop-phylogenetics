@@ -13,13 +13,20 @@ According to the IQTREE test, the **Best-fit model: HKY+F+I+G4 chosen according 
 
 Let's see what jModeltest2 suggests is the best-fit model for your data. 
 ```
-java -jar /home/ec2-user/Software/jmodltest2/jmodeltest-2.1.10/jModelTest.jar -d example-data/aP6.fas -f -i -g 4 -s 11 -AIC -a
- Command line: java -jar jModeltest.jar -d sequenceFileName [arguments]
-
- Example: java -jar jModeltest.jar -d sequenceFileName -i -f -g 4 -BIC -AIC -AICc -DT -v -a -w
+java -jar /home/ec2-user/Software/jmodltest2/jmodeltest-2.1.10/jModelTest.jar -d example-data/aP6.fas -f -i -g 4 -s 11 -AIC -BIC -a -o jmodeltest_output
 
 ```
-This will test all 88 models (gamma models with 4 rate categories), and then perform the model selection using Akaike (AIC) and Bayesian (BIC) criteria, calculating also a model averaged phylogeny (```-a```).
+This will test all 88 models including gamma models with 4 rate categories (```-f -i -g 4 -a``` ), and then perform the model selection using Akaike (```-AIC```) and Bayesian (```-BIC```) criteria, calculating also a model averaged phylogeny (```-a```). The output file name is specified by the operator ```-o```
+
+Here are what the different operators are: 
+```-d``` input data file
+```-i``` include models with a proportion invariable sites
+```-g```  include models with rate variation among sites and number of categories 
+```-s``` number of substitution schemes (e.g., -s 11) (it has to be 3,5,7,11,203; default is 3)
+```-AIC``` calculate the Akaike Information Criterion
+```-BIC```   calculate the Bayesian Information Criterion 
+```-a```   estimate model-averaged phylogeny for each active criterion
+```-o``` output file name
 
 # Building a Maximum-Likelihood phylgenetic tree with IQTREE
 There are many different programs you can use to build a ML tree. One very flexible ML-based method is <a href="http://www.iqtree.org/">IQTREE</a>. IQTREE is great, has extensive documentation, and also integrates model selection with a wide variety of different models, so you don't have to use a separate model tester. 
