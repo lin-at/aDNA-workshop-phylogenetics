@@ -99,6 +99,7 @@ Notice the different species and population structure of the wolves and dogs on 
 # More Resources
 * <a href="http://www.iqtree.org/doc/Tutorial">IQTREE Tutorial</a>
 * <a href="http://www.iqtree.org/doc/">IQTREE Documentation</a>
-* <a href="https://www.phylo.org/pdf_docs/jmodeltest-2.1.6-manual.pdf">jModelTest2 Manual</a> 
+* <a href="https://www.phylo.org/pdf_docs/jmodeltest-2.1.6-manual.pdf">jModelTest2 Manual</a>
+* Ho, Simon YW. "The molecular evolutionary clock." Switzerland: Springer Nature, 2021.
 * Yang, Ziheng. Molecular evolution: a statistical approach. Oxford University Press, 2014.
 
