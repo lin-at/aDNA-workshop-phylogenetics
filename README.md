@@ -22,9 +22,9 @@ Here are what the different operators are:
 
 ```-d``` input data file
 
-```-i``` include models with a proportion invariable sites
+```-i``` include models with a proportion invariable/invariant sites (i.e. nucleotides at some sites remain constant, or invariant, over time)
 
-```-g```  include models with rate variation among sites and number of categories 
+```-g```  Include models with rate variation/rate heterogeneity among sites and sets the number of categories. Usually 4 categories are enough (i.e. discrete Gamma model with 4 rate categories; Yang, 1994).
 
 ```-s``` number of substitution schemes (e.g., -s 11) (it has to be 3,5,7,11,203; default is 3)
 
@@ -97,4 +97,6 @@ Notice the different species and population structure of the wolves and dogs on 
 # More Resources
 * <a href="http://www.iqtree.org/doc/Tutorial">IQTREE Tutorial</a>
 * <a href="http://www.iqtree.org/doc/">IQTREE Documentation</a>
+* <a href="https://www.phylo.org/pdf_docs/jmodeltest-2.1.6-manual.pdf">jModelTest2 Manual</a> 
+* Yang, Ziheng. Molecular evolution: a statistical approach. Oxford University Press, 2014.
 
