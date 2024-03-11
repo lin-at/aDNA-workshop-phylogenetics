@@ -71,7 +71,8 @@ When IQTREE is finished running, download ```wolves_dogs_aln_noindels.phy.treefi
 scp -i apgc-2021-key.pem.txt your_user_name@3.249.84.19:/home/ec2-user/Data/wolves_dogs_aln_noindels.phy.treefile .
 ```
 # Building a Maximum-Likelihood phylogenetic tree with RAxML
-As I have previously mentioned, there are many different programs you can use to build a ML tree. <a href="https://cme.h-its.org/exelixis/web/software/raxml/index.html">RAxML</a> is one of the most popular ML-based method in phylogenetics. Unfortunately, the substitution models you can implement in RAxML are much more limited, and HKY+F+I+G4 model identified in IQTREE cannot be fully used. 
+As I have previously mentioned, there are many different programs you can use to build a ML tree. <a href="https://cme.h-its.org/exelixis/web/software/raxml/index.html">RAxML</a> is one of the most popular ML-based method in phylogenetics. Unfortunately, the substitution models you can implement in RAxML are much more limited, and HKY+F+I+G4 model identified in IQTREE cannot be fully used. But as an example, let's go with ```-m GTRGAMMA --HKY85```. It will more than 10 minutes to run this during the workshop, but feel free to do it at home. 
+
 ```
 raxmlHPC-SSE3 -f a -x 12345 -m GTRGAMMA -p 12345 -# 100 -s wolves_dogs_aln_noindels.phy -n raxml_tree --HKY85
 ```
@@ -91,7 +92,8 @@ Here are what the different operators are:
 
 ```-n``` name of output file.
 
-The run will take a few minutes. 
+The output tree file will be found: ``` output raxml tree file ```
+
 
 # Visualizing your tree
 Open **FigTree**.
