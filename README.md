@@ -1,13 +1,41 @@
-# Introduction to phylogenetics with ancient genomes
-In this exercise, we will use IQTREE and jModelTest2 to determine what is the best substitution model to use for our alignment of canid mtDNA. Then, we will use RaXML and IQTREE to build Maximum-Likelihood trees. 
+# Introduction to phylogenetics with ancient mitochondrial genomes
 
-First, in your AWS home directory, create a new ```mtDNA``` directory:
+# Create a consensus sequence
+We will first use ANGSD to call a consensus mtDNA sequence. 
+
+In your AWS home directory, create a new ```mtDNA``` directory and then create a new text file ```CanidSample.bam``` as shown below:
 ```
 mkdir mtDNA
 ```
 ```
 cd mtDNA
 ```
+
+```
+echo "CanidSample.bam" >> CanidSample.txt
+```
+We will call ANGSD to create a consensus mtDNA sequence from your merged(?) bam files.
+```
+angsd -doFasta 2 -doCounts 1 -trim 5 -minMapQ 30 -bam CanidSample.txt -out canid_seq
+```
+
+```-doFasta 2``` generates a fasta for a BAM file. ```2``` uses the most common base. A random base is chosen among the bases with the same maximum counts. N's or filtered bases are ignored. The "-doCounts 1" options for allele counts is needed in order to determine the most common base. If multiple individuals are used the four bases are counted across individuals.
+
+```-doCounts 1``` counts bases accross individuals to determine the concensus allele
+
+```-trim 5``` number of bases to remove at each end. 
+
+```-minMapQ 30``` minimum MapQ quality
+
+```-bam``` input is actually a text file with the filename in it
+
+```-out``` output file name
+
+
+
+Next, we will use IQTREE and jModelTest2 to determine what is the best substitution model to use for our alignment of canid mtDNA. Then, we will use RaXML and IQTREE to build Maximum-Likelihood trees. 
+
+
 
 # Selecting the best-fit model
 Download ```/home/ec2-user/Data/mtDNA/wolves_dogs_aln_noindels.phy```and upload this file into your newly created ```mtDNA``` directory in your AWS account. 
@@ -71,7 +99,7 @@ When IQTREE is finished running, download ```wolves_dogs_aln_noindels.phy.treefi
 scp -i apgc-2021-key.pem.txt your_user_name@3.249.84.19:/home/ec2-user/Data/wolves_dogs_aln_noindels.phy.treefile .
 ```
 # Building a Maximum-Likelihood phylogenetic tree with RAxML
-As I have previously mentioned, there are many different programs you can use to build a ML tree. <a href="https://cme.h-its.org/exelixis/web/software/raxml/index.html">RAxML</a> is one of the most popular ML-based method in phylogenetics. Unfortunately, the substitution models you can implement in RAxML are much more limited, and HKY+F+I+G4 model identified in IQTREE cannot be fully used. But as an example, let's go with ```-m GTRGAMMA --HKY85```. It will more than 10 minutes to run this during the workshop, but feel free to do it at home. 
+As I have previously mentioned, there are many different programs you can use to build a ML tree. <a href="https://cme.h-its.org/exelixis/web/software/raxml/index.html">RAxML</a> is one of the most popular ML-based method in phylogenetics. Unfortunately, the substitution models you can implement in RAxML are much more limited, and HKY+F+I+G4 model identified in IQTREE cannot be fully used. But as an example, let's go with ```-m GTRGAMMA --HKY85```. It will take almost 1 hour to run this on the AWS, so we're not going to do it during the workshop. However, we've generated the tree for you, using the command below:
 
 ```
 raxmlHPC-SSE3 -f a -x 12345 -m GTRGAMMA -p 12345 -# 100 -s wolves_dogs_aln_noindels.phy -n raxml_tree --HKY85
@@ -92,7 +120,11 @@ Here are what the different operators are:
 
 ```-n``` name of output file.
 
-The output tree file will be found: ``` output raxml tree file ```
+You can download the best-scoring ML tree with support values: 
+```
+scp -i apgc-2021-key.pem.txt your_user_name@3.249.84.19:/home/testusr/mtDNA/RAxML_bipartitions.raxml_tree .
+```
+
 
 
 # Visualizing your tree
@@ -106,7 +138,7 @@ On the Layout panel on the left, click the little carrot triangle next to "Trees
 ![image](https://github.com/lin-at/aDNA-workshop-phylogenetics/assets/68337277/a322088d-634d-41e8-914a-40fdd51ce72f)
 On the Layout panel on the left, click the little carrot triangle next to "Node Labels" and check the box. Select "bootstrap" on the "Display" pull-down menu. 
  ![image](https://github.com/lin-at/aDNA-workshop-phylogenetics/assets/68337277/5ee4bf4c-a7d9-4db7-9c0b-c2dc81d2ad70)
-You can manipulate the tree by zooming in/expanding the branches using the "Layout" panel on the left by adjusting the "Zoom" and "Expansion" toggles.
+You can manipulate the tree by zooming in/expanding the branches using the "Layout" panel on the left by adjusting the "Zoom" and "Expansion" toggles. You can also play around with the label fonts, color-code the branches, collapse the nodes, etc. 
   ![image](https://github.com/lin-at/aDNA-workshop-phylogenetics/assets/68337277/7064495c-239d-468b-9df3-d449b35777af)
 
 
@@ -117,6 +149,7 @@ Notice the different species and population structure of the wolves and dogs on 
 * Frantz, Laurent AF, et al. "Genomic and archaeological evidence suggest a dual origin of domestic dogs." Science 352.6290 (2016): 1228-1231.
 * Ramos-Madrigal, Jazmín, et al. "Genomes of Pleistocene Siberian wolves uncover multiple extinct wolf lineages." Current Biology 31.1 (2021): 198-206.
 # More Resources
+* <a href="https://www.popgen.dk/angsd/index.php/Main_Page">ANGSD</a> 
 * <a href="http://www.iqtree.org/doc/Tutorial">IQTREE Tutorial</a>
 * <a href="http://www.iqtree.org/doc/">IQTREE Documentation</a>
 * <a href="https://www.phylo.org/pdf_docs/jmodeltest-2.1.6-manual.pdf">jModelTest2 Manual</a>
