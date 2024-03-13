@@ -1,5 +1,5 @@
 # Introduction to phylogenetics with ancient mitochondrial genomes
-In this exercise you will learn how to create a consensus sequence using ANGSD, which is a very handy software capable of handling NGS data. You will also learn how to test for the best substitution model for an alignment, and then learn how to create Maximum-Likelihood phylogenetic trees using your alignmnt of ancient and modern mtDNA sequences.
+These exercises were created for the 2024 Ancient DNA Workshop hosted at the American Museum of Natural History. In this exercise you will learn how to create a consensus sequence using ANGSD, which is a very handy software capable of handling NGS data. You will also learn how to test for the best substitution model for an alignment, and then learn how to create Maximum-Likelihood phylogenetic trees using your alignmnt of ancient and modern mtDNA sequences.
 
 # Create a consensus sequence
 First you will learn how to use ANGSD to call a consensus sequence. In practice, you will often have multiple libraries of the same sample so you will need to create a consensus sequence of either the entire genome (or the mtDNA only, if you have previously mapped to the mtDNA reference, assigned read groups, filtered, removed duplicates, indexed the bam etc.  
