@@ -135,10 +135,12 @@ Notice the different species and population structure of the wolves and dogs on 
 * Frantz, Laurent AF, et al. "Genomic and archaeological evidence suggest a dual origin of domestic dogs." Science 352.6290 (2016): 1228-1231.
 * Ramos-Madrigal, Jazmín, et al. "Genomes of Pleistocene Siberian wolves uncover multiple extinct wolf lineages." Current Biology 31.1 (2021): 198-206.
 # More Resources
-* <a href="https://www.popgen.dk/angsd/index.php/Main_Page">ANGSD</a> 
+* <a href="https://www.popgen.dk/angsd/index.php/Main_Page">ANGSD</a>
+* <a href="https://github.com/rambaut/figtree/">Figtree</a>
 * <a href="http://www.iqtree.org/doc/Tutorial">IQTREE Tutorial</a>
 * <a href="http://www.iqtree.org/doc/">IQTREE Documentation</a>
 * <a href="https://www.phylo.org/pdf_docs/jmodeltest-2.1.6-manual.pdf">jModelTest2 Manual</a>
+* <a href="https://cme.h-its.org/exelixis/web/software/raxml/">RAxML</a>
 * Ho, Simon YW. "The molecular evolutionary clock." Switzerland: Springer Nature, 2021.
 * Yang, Ziheng. Molecular evolution: a statistical approach. Oxford University Press, 2014.
 
