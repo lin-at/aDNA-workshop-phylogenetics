@@ -86,6 +86,7 @@ scp -i apgc-2021-key.pem.txt your_user_name@3.249.84.19:/home/your_user_name/mtD
 # Building a Maximum-Likelihood phylogenetic tree with RAxML
 As I have previously mentioned, there are many different programs you can use to build a ML tree. <a href="https://cme.h-its.org/exelixis/web/software/raxml/index.html">RAxML</a> is one of the most popular ML-based method in phylogenetics. Unfortunately, the substitution models you can implement in RAxML are much more limited, and HKY+F+I+G4 model identified in IQTREE cannot be fully used. But as an example, let's go with ```-m GTRGAMMA --HKY85```. It will take almost 1 hour to run this on the AWS, so we're not going to do it during the workshop. However, we've generated the tree for you, using the command below:
 
+
 ```
 raxmlHPC-SSE3 -f a -x 12345 -m GTRGAMMA -p 12345 -# 100 -s wolves_dogs_aln_noindels.phy -n raxml_tree --HKY85
 ```
@@ -127,7 +128,7 @@ You can manipulate the tree by zooming in/expanding the branches using the "Layo
   ![image](https://github.com/lin-at/aDNA-workshop-phylogenetics/assets/68337277/7064495c-239d-468b-9df3-d449b35777af)
 
 
-Notice the different species and population structure of the wolves and dogs on the tree. We have more than one clade of dogs embedded within the different wolf populations. Does this suggest that dogs were domesticated from more than one ancient wolf population? Or are these hybridization events?
+Notice the different species and population structure of the wolves and dogs on the tree. We have more than one clade of dogs embedded within the different wolf populations. Does this suggest that dogs were domesticated from more than one ancient wolf population? Or are these hybridization events? How certain are you about the tree topology?
 
 # References
 * Bergström, Anders, et al. "Grey wolf genomic history reveals a dual ancestry of dogs." Nature 607.7918 (2022): 313-320.
